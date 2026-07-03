@@ -1,14 +1,16 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
 import GlassCard from '../../components/ui/GlassCard';
 import SectionTitle from '../../components/ui/SectionTitle';
-import { User, Mail, Calendar, Shield, Save, Upload, MapPin, Globe, Github, Twitter, Linkedin, Instagram, Moon, Sun } from 'lucide-react';
+import { User, Mail, Calendar, Shield, Save, Upload, MapPin, Globe, Github, Twitter, Linkedin, Instagram, Moon, Sun, LogOut } from 'lucide-react';
 import { authAPI } from '../../services/api';
 import toast from 'react-hot-toast';
 
 export default function Profile() {
-  const { user, updateProfile } = useAuth();
+  const { user, updateProfile, logout } = useAuth();
+  const navigate = useNavigate();
   const [name, setName] = useState(user?.name || '');
   const [avatar, setAvatar] = useState(user?.avatar || '');
   const [bio, setBio] = useState(user?.bio || '');
@@ -179,6 +181,11 @@ export default function Profile() {
             </button>
           </div>
         </GlassCard>
+
+        <button onClick={() => { logout(); navigate('/'); }}
+          className="w-full py-3 rounded-xl bg-gradient-to-r from-red-500 to-red-700 text-white font-medium flex items-center justify-center gap-2 hover:shadow-[0_0_30px_rgba(239,68,68,0.3)] transition-all">
+          <LogOut className="w-4 h-4" /> Logout
+        </button>
       </div>
     </motion.div>
   );

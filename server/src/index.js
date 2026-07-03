@@ -19,14 +19,9 @@ import { apiLimiter } from './middleware/rateLimiter.js';
 const app = express();
 
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
-const allowedOrigins = [
-  process.env.FRONTEND_URL,
-  'http://localhost:5173',
-  'http://localhost:4173',
-].filter(Boolean);
 app.use(cors({
-  origin: allowedOrigins.length > 0 ? allowedOrigins : '*',
-  credentials: allowedOrigins.length > 0,
+  origin: process.env.FRONTEND_URL || true,
+  credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use('/api', apiLimiter);

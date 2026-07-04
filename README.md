@@ -181,4 +181,6 @@ Create a free cluster and add connection string to `MONGODB_URI`
 | `/api/chat/sessions` | GET | Chat sessions |
 | `/api/chat/history/:sessionId` | GET | Chat history |
 
+## License
 
+MIT
